@@ -9,7 +9,7 @@ import gi
 import subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Pango
-
+import cairo
 
 class ContentStyle:
     def __init__(self):
@@ -211,46 +211,106 @@ class MyWindow(Gtk.Window):
         self.pages.append(page2_box)
         content_box.pack_start(page2_box, True, True, 0)
         
-        # Pagina 3
+        # Pagina 3 color folders
         page3_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        page3_box.set_margin_top(40)
         
-        label3_1 = Gtk.Label(label="Questa è la pagina 3.")
-        label3_2 = Gtk.Label(label="Aggiungi qui tutte le etichette che vuoi.")
+        command_output = subprocess.check_output('papirus-folders -l --theme Papirus-Dark | grep ">"', shell=True)
+        folder = command_output.decode("utf-8")
+
+        image0 = Gtk.Image.new_from_file('/usr/share/welcome/icn/color-folders.png')
+        image = Gtk.Image.new_from_file('/usr/share/icons/Papirus-Dark/64x64/places/folder-favorites.svg')
+        
+
+        label3_000 = Gtk.Label()
+        label3_000.set_markup("<span font_desc='Helvetica Bold 10' foreground='#000000' font_family='Helvetica'> </span>")
+        label3_1 = Gtk.Label()
+        label3_1.set_markup("<span font_desc='Architalia Bold 25' foreground='#d8dee9' font_family='Architalia'>Color Folders</span>")
+        label3_2 = Gtk.Label()
+        label3_2.set_markup("<span font_desc='Architalia Bold 14' foreground='#d8dee9' font_family='Architalia'>Choose your favorite color</span>")
+        label3_0 = Gtk.Label()
+        label3_0.set_markup("<span font_desc='Helvetica Bold 25' foreground='#000000' font_family='Helvetica'> </span>")
+        label3_3 = Gtk.Label()
+        label3_3.set_markup("<span font_desc='Architalia 14' foreground='#d8dee9' font_family='Architalia'>Use Color Folders to change the style of your Papirus folders.</span>")
+        label3_4 =Gtk.Label()
+        label3_4.set_markup("<span font_desc='Architalia 14' foreground='#81a1c1' font_family='Architalia'>There are 45 different color types available for your Papirus folders.</span>")
+        label3_5 =Gtk.Label()
+        label3_5.set_markup("<span font_desc='Architalia 14' foreground='#ebcb8b' font_family='Architalia'>To apply the selected color to the desktop icons,</span>")
+        label3_6 =Gtk.Label()
+        label3_6.set_markup("<span font_desc='Architalia 14' foreground='#ebcb8b' font_family='Architalia'>right-click on the desktop after choosing your preferred theme.</span>")
+        label3_99 = Gtk.Label()
+        label3_99.set_markup(f"<span font_desc='Architalia 12' foreground='#d8dee9' font_family='Architalia'>Current color{folder}</span>")
+        label3_00 = Gtk.Label()
+        label3_00.set_markup("<span font_desc='Helvetica Bold 40' foreground='#000000' font_family='Helvetica'> </span>")
+        
+        button = Gtk.Button.new_with_label('Color Folders Launch')
+        button.connect('clicked', lambda _: subprocess.check_call(["gnome-terminal", "--", "/usr/bin/color-folders"], shell=False))
+        button.set_size_request(200, 50)
+        
+        page3_box.pack_start(image0, False, False, 0)
+        page3_box.pack_start(label3_000, False, False, 0)
         page3_box.pack_start(label3_1, False, False, 0)
         page3_box.pack_start(label3_2, False, False, 0)
+        page3_box.pack_start(label3_0, False, False, 0)
+        page3_box.pack_start(label3_3, False, False, 0)
+        page3_box.pack_start(label3_4, False, False, 0)
+        page3_box.pack_start(label3_5, False, False, 0)
+        page3_box.pack_start(label3_6, False, False, 0)
+        page3_box.pack_start(label3_00, False, False, 0)
+        page3_box.pack_start(image, False, False, 0)
+        page3_box.pack_start(label3_99, False, False, 0)
+        page3_box.pack_start(button, False, False, 10)
+
+
+
         self.pages.append(page3_box)
         content_box.pack_start(page3_box, True, True, 0)
         
-        # Pagina 4
+                # Pagina 4 clean
         page4_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        page4_box.set_margin_top(40)
         
-        label4_1 = Gtk.Label(label="Questa è la pagina 4.")
-        label4_2 = Gtk.Label(label="Aggiungi qui tutte le etichette che vuoi.")
+        
+
+        image0 = Gtk.Image.new_from_file('/usr/share/welcome/icn/clean.png')
+        
+
+        label4_000 = Gtk.Label()
+        label4_000.set_markup("<span font_desc='Helvetica Bold 10' foreground='#000000' font_family='Helvetica'> </span>")
+        label4_1 = Gtk.Label()
+        label4_1.set_markup("<span font_desc='Architalia Bold 25' foreground='#d8dee9' font_family='Architalia'>Clean</span>")
+        label4_2 = Gtk.Label()
+        label4_2.set_markup("<span font_desc='Architalia Bold 14' foreground='#d8dee9' font_family='Architalia'>System Cleaner</span>")
+        label4_0 = Gtk.Label()
+        label4_0.set_markup("<span font_desc='Helvetica Bold 25' foreground='#000000' font_family='Helvetica'> </span>")
+        label4_3 = Gtk.Label()
+        label4_3.set_markup("<span font_desc='Architalia 14' foreground='#d8dee9' font_family='Architalia'>Clean is a tool created by the Core Linux team developers for system maintenance</span>")
+        label4_4 =Gtk.Label()
+        label4_4.set_markup("<span font_desc='Architalia 14' foreground='#81a1c1' font_family='Architalia'>to remove orphan packages, package cache, user cache, and trash.</span>")
+        label4_6 =Gtk.Label()
+        label4_6.set_markup("<span font_desc='Architalia 14' foreground='#ebcb8b' font_family='Architalia'>Just type the clean command or use the application in the menu.</span>")
+        label4_00 = Gtk.Label()
+        label4_00.set_markup("<span font_desc='Helvetica Bold 40' foreground='#000000' font_family='Helvetica'> </span>")
+        
+        button = Gtk.Button.new_with_label('Clean Launch')
+        button.connect('clicked', lambda _: subprocess.check_call(["gnome-terminal", "--", "/usr/bin/clean"], shell=False))
+        button.set_size_request(200, 50)
+        
+        page4_box.pack_start(image0, False, False, 0)
+        page4_box.pack_start(label4_000, False, False, 0)
         page4_box.pack_start(label4_1, False, False, 0)
         page4_box.pack_start(label4_2, False, False, 0)
+        page4_box.pack_start(label4_0, False, False, 0)
+        page4_box.pack_start(label4_3, False, False, 0)
+        page4_box.pack_start(label4_4, False, False, 0)
+        page4_box.pack_start(label4_6, False, False, 0)
+        page4_box.pack_start(label4_00, False, False, 0)
+        page4_box.pack_start(button, False, False, 10)
+
+
+
         self.pages.append(page4_box)
         content_box.pack_start(page4_box, True, True, 0)
-        
-        # Pagina 5
-        page5_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-        
-        label5_1 = Gtk.Label(label="Questa è la pagina 5.")
-        label5_2 = Gtk.Label(label="Aggiungi qui tutte le etichette che vuoi.")
-        page5_box.pack_start(label5_1, False, False, 0)
-        page5_box.pack_start(label5_2, False, False, 0)
-        self.pages.append(page5_box)
-        content_box.pack_start(page5_box, True, True, 0)
-        
-        # Pagina 6
-        page6_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-        
-        label6_1 = Gtk.Label(label="Questa è la pagina 6.")
-        label6_2 = Gtk.Label(label="Aggiungi qui tutte le etichette che vuoi.")
-        page6_box.pack_start(label6_1, False, False, 0)
-        page6_box.pack_start(label6_2, False, False, 0)
-        self.pages.append(page6_box)
-        content_box.pack_start(page6_box, True, True, 0)
-
         
 
         # Applicazione dello stile ai widget nella barra laterale.
