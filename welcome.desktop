@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Welcome
+Exec=python3 /usr/bin/welcome.py 
+Icon=/usr/share/welcome/icn/welcome.png
+Type=Application
+Categories=Utility
+StartupNotify=true
+StartupWMClass=Welcome
+
