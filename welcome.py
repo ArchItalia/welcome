@@ -6,6 +6,7 @@
 # gtk3 glib2 pango gobject-introspection
 
 import gi
+import subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Pango
 
@@ -123,11 +124,13 @@ class MyWindow(Gtk.Window):
         # Creazione delle pagine di contenuto
         self.pages = []
 
-        # Creazione delle 6 pagine di contenuto
-        # Pagina 1
+        
+        # Pagina 1 welcome
         page1_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         page1_box.set_margin_top(40)
         
+        output = subprocess.check_output('uname -r', shell=True)
+        kernel = output.decode('utf-8').strip()
         image = Gtk.Image.new_from_file('/usr/share/welcome/icn/core.png')
         page1_box.pack_start(image, False, False, 0)
         
@@ -138,23 +141,73 @@ class MyWindow(Gtk.Window):
         label1_2 = Gtk.Label()
         label1_2.set_markup("<span font_desc='Architalia 20' foreground='#d8dee9' font_family='Architalia'>Core Linux is a distribution based on Arch Linux</span>")
         label1_3 = Gtk.Label()
-        label1_3.set_markup("<span font_desc='Architalia 14' foreground='#d8dee9' font_family='Architalia'>Core Linux is a project developed by the Italian community team of Architalia.</span>")
-        link_button = Gtk.LinkButton.new_with_label("https://architalia.github.io/core", "https://architalia.github.io/core")
+        label1_3.set_markup("<span font_desc='Architalia 14' foreground='#81a1c1' font_family='Architalia'>Core Linux is a project developed by the Italian community team of Architalia.</span>")
+        link_button0 = Gtk.LinkButton.new_with_label("", "")
+        link_button = Gtk.LinkButton.new_with_label("https://architalia.github.io/core", "Web Site Core Linux")
+        link_button2 = Gtk.LinkButton.new_with_label("https://architalia.github.io/site", "Web Site Architalia")
+        link_button3 = Gtk.LinkButton.new_with_label("https://gitlab.com/architalialinux/ai-repo", "Repository")
+        label1_4 = Gtk.Label()
+        label1_4.set_markup("<span font_desc='Helvetica Bold 25' foreground='#000000' font_family='Helvetica'> </span>")
+        label1_5a = Gtk.Label()
+        label1_5a.set_markup(f"<span font_desc='Architalia 14' foreground='#ebcb8b' font_family='Architalia'>Kernel {kernel}</span>")
+        label1_5 = Gtk.Label()
+        label1_5.set_markup("<span font_desc='Architalia 14' foreground='#d8dee9' font_family='Architalia'>Core Linux 2023.08 Beta</span>")
+        label1_6 = Gtk.Label()
+        label1_6.set_markup("<span font_desc='Architalia 14' foreground='#81a1c1' font_family='Architalia'>Developed by Jonathan Sanfilippo, Klod cripta.</span>")
         page1_box.pack_start(label1_0, False, False, 0)
         page1_box.pack_start(label1_1, False, False, 0)
         page1_box.pack_start(label1_2, False, False, 0)
         page1_box.pack_start(label1_3, False, False, 0)
+
+        page1_box.pack_start(link_button0, False, False, 0)
         page1_box.pack_start(link_button, False, False, 0)
+        page1_box.pack_start(link_button2, False, False, 0)
+        page1_box.pack_start(link_button3, False, False, 0)
+        page1_box.pack_start(label1_4, False, False, 0)
+        page1_box.pack_start(label1_5a, False, False, 0)
+        page1_box.pack_start(label1_5, False, False, 0)
+        page1_box.pack_start(label1_6, False, False, 0)
         self.pages.append(page1_box)
         content_box.pack_start(page1_box, True, True, 0)
         
-        # Pagina 2
+        # Pagina 2 timeshift
         page2_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        page2_box.set_margin_top(40)
         
-        label2_1 = Gtk.Label(label="Questa è la pagina 2.")
-        label2_2 = Gtk.Label(label="Aggiungi qui tutte le etichette che vuoi.")
+        image = Gtk.Image.new_from_file('/usr/share/welcome/icn/timeshift.png')
+        page2_box.pack_start(image, False, False, 0)
+
+        
+        label2_1 = Gtk.Label()
+        label2_1.set_markup("<span font_desc='Architalia Bold 25' foreground='#d8dee9' font_family='Architalia'>Timeshift</span>")
+        label2_2 = Gtk.Label()
+        label2_2.set_markup("<span font_desc='Architalia Bold 14' foreground='#d8dee9' font_family='Architalia'>System restore tool for Linux</span>")
+        label2_0 = Gtk.Label()
+        label2_0.set_markup("<span font_desc='Helvetica Bold 25' foreground='#000000' font_family='Helvetica'> </span>")
+        label2_3 = Gtk.Label()
+        label2_3.set_markup("<span font_desc='Architalia 14' foreground='#d8dee9' font_family='Architalia'>Creates filesystem snapshots using rsync+hardlinks, or BTRFS snapshots.</span>")
+        label2_4 =Gtk.Label()
+        label2_4.set_markup("<span font_desc='Architalia 14' foreground='#81a1c1' font_family='Architalia'>A minimum of two daily and two boot snapshots are racommended.</span>")
+        label2_5 =Gtk.Label()
+        label2_5.set_markup("<span font_desc='Architalia 14' foreground='#ebcb8b' font_family='Architalia'>If anything breaks, you can then restore your computer to its previous working state.</span>")
+        label2_00 = Gtk.Label()
+        label2_00.set_markup("<span font_desc='Helvetica Bold 40' foreground='#000000' font_family='Helvetica'> </span>")
+        
+        button = Gtk.Button.new_with_label('Timeshift Launch')
+        button.connect('clicked', lambda _: subprocess.check_call('timeshift-launcher', shell=True))
+        button.set_size_request(200, 50) 
+        
         page2_box.pack_start(label2_1, False, False, 0)
         page2_box.pack_start(label2_2, False, False, 0)
+        page2_box.pack_start(label2_0, False, False, 0)
+        page2_box.pack_start(label2_3, False, False, 0)
+        page2_box.pack_start(label2_4, False, False, 0)
+        page2_box.pack_start(label2_5, False, False, 0)
+        page2_box.pack_start(label2_00, False, False, 0)
+        page2_box.pack_start(button, False, False, 10)
+
+
+
         self.pages.append(page2_box)
         content_box.pack_start(page2_box, True, True, 0)
         
@@ -217,7 +270,9 @@ class MyWindow(Gtk.Window):
 
         selected_page_index = listbox_row.get_index()
         self.pages[selected_page_index].show()
-
+        
+       
+        
 
 win = MyWindow()
 win.connect("delete-event", Gtk.main_quit)
